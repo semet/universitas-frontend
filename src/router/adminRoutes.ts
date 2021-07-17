@@ -12,14 +12,6 @@ export const adminRoutes: Array<RouteRecordRaw & Paths<AdminMenuPaths>> = [
         },
     },
     {
-        path: "home",
-        name: "adminHome",
-        component: () => import("@/views/admin/Home.vue"),
-        meta: {
-            title: "Admin Home",
-        },
-    },
-    {
         path: "dekan",
         name: "adminDekan",
         component: () => import("@/views/admin/dekan/Dekan.vue"),
@@ -33,6 +25,22 @@ export const adminRoutes: Array<RouteRecordRaw & Paths<AdminMenuPaths>> = [
         component: () => import("@/views/admin/fakultas/Fakultas.vue"),
         meta: {
             title: "Admin Fakultas",
+        },
+    },
+    {
+        path: "tahun",
+        name: "adminTahun",
+        component: () => import("@/views/admin/tahun/Tahun.vue"),
+        meta: {
+            title: "Admin Tahun",
+        },
+    },
+    {
+        path: "semester",
+        name: "adminSemester",
+        component: () => import("@/views/admin/semester/Semester.vue"),
+        meta: {
+            title: "Admin Semester",
         },
     },
     {

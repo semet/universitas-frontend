@@ -12,6 +12,16 @@ export const adminMenus: Array<Menu> = [
         icon: "mdi mdi-home-city",
     },
     {
+        path: "/admin/tahun",
+        name: "Tahun",
+        icon: "mdi mdi-home-city",
+    },
+    {
+        path: "/admin/semester",
+        name: "Semester",
+        icon: "mdi mdi-home-city",
+    },
+    {
         path: "/admin/dekan",
         name: "Dekan",
         icon: "mdi mdi-account-circle",

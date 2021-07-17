@@ -5,6 +5,8 @@ export type AdminMenuPaths =
     | "dekan"
     | "fakultas"
     | "staff"
+    | "tahun"
+    | "semester"
     | "matakuliah"
     | "dosen"
     | "mahasiswa";
