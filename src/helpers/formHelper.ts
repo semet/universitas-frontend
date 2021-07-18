@@ -12,3 +12,12 @@ export const randomPassword = (
         .map((x) => wishlist[x % wishlist.length])
         .join("");
 };
+
+export const formatDate = (date: string) => {
+    return new Date(date).toLocaleDateString("id-ID", {
+        // weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+};

@@ -1,7 +1,8 @@
 export type Tahun = {
+    id?: number;
     name: string;
-    startDate: Date;
-    endDate: Date;
+    startDate: Date | string;
+    endDate: Date | string;
     description?: string;
     active?: boolean;
 };
@@ -13,5 +14,6 @@ export type TahunEvent = {
     tahunEdited?: string;
     deleteTahun?: string;
     tahunDeleted?: string;
+    tahunToggled?: string;
     emptyEvent: never;
 };

@@ -1,10 +1,10 @@
-import { inject, reactive, ref } from "vue";
+import { inject, nextTick, reactive, ref } from "vue";
 import $ from "jquery";
 import { Tahun, TahunEvent } from "@/types/tahun";
 import { Emitter } from "mitt";
 import { ModalProps } from "@/types/modalProps";
 import { useApi } from "@/hooks/useApi";
-import { clearForm } from "@/helpers/formHelper";
+import { clearForm, formatDate } from "@/helpers/formHelper";
 
 export const useTahun = () => {
     const event = inject("eventBus") as Emitter<TahunEvent>;
@@ -26,7 +26,7 @@ export const useTahun = () => {
     };
 
     const createTahun = () => {
-        modal.heading = "Entry Data Staff";
+        modal.heading = "Entry Data Tahun";
         modal.content = "tahun-create";
         modal.event = "saveTahun";
     };
@@ -80,6 +80,24 @@ export const useTahun = () => {
             event.emit("tahunDeleted");
         });
     };
+
+    const toggleActiveYear = (id: number) => {
+        useApi
+            .post("/admin/tahun/toggle", { tahunId: id })
+            .then((response) => {
+                // console.log(response.data.msg);
+                // event.emit("tahunToggled", response.data.msg);
+                if (response.status === 201) {
+                    nextTick(() => loadTahuns());
+                } else {
+                    nextTick(() => loadTahuns());
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
     return {
         allTahun,
         selectedTahun,
@@ -89,6 +107,8 @@ export const useTahun = () => {
         showTahun,
         editTahun,
         deleteTahun,
+        formatDate,
+        toggleActiveYear,
         modal,
     };
 };

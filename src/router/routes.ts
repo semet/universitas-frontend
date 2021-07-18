@@ -4,6 +4,10 @@ import { authRoutes } from "./authRoutes";
 
 export const routes: Array<RouteRecordRaw> = [
     {
+        path: "/",
+        component: () => import("@/views/Stater.vue"),
+    },
+    {
         path: "/login",
         component: () => import("@/components/layouts/AuthLayout.vue"),
         children: [...authRoutes],

@@ -1,16 +1,26 @@
 <template>
     <form>
         <text-input
-            input-id="Display Name"
+            input-id="tahun-name"
             icon="fas fa-user"
             placeholder="Display Name"
             v-model="state.name"
         />
-        <text-input
-            input-id="Display Name"
-            icon="fas fa-user"
-            placeholder="Display Name"
-        />
+        <date-picker v-model="state.startDate" />
+
+        <date-picker v-model="state.endDate" />
+
+        <div class="input-group mb-3">
+            <input
+                type="checkbox"
+                id="active"
+                switch="none"
+                checked
+                v-model="state.active"
+            />
+            <label for="active" data-on-label="Active" data-off-label="Off"></label>
+        </div>
+        <textarea-input placeholder="Description" v-model="state.description" />
     </form>
 </template>
 
@@ -18,20 +28,25 @@
 import { defineComponent, inject, onMounted, reactive } from "vue";
 import { Tahun, TahunEvent } from "@/types/tahun";
 import { useTahun } from "@/crud/useTahun";
+import { Emitter } from "mitt";
 
 import TextInput from "@/components/form/TextInput.vue";
-import { Emitter } from "mitt";
+import TextareaInput from "@/components/form/TextareaInput.vue";
+import DatePicker from "@/components/form/DatePicker.vue";
+import { useApi } from "@/hooks/useApi";
 
 export default defineComponent({
     components: {
         TextInput,
+        TextareaInput,
+        DatePicker,
     },
     setup() {
         const event = inject("eventBus") as Emitter<TahunEvent>;
         const state = reactive<Tahun>({
             name: "",
-            startDate: new Date(),
-            endDate: new Date(),
+            startDate: "",
+            endDate: "",
             active: false,
             description: "",
         });
@@ -40,6 +55,7 @@ export default defineComponent({
 
         onMounted(() => {
             event.on("saveTahun", () => saveTahun(state));
+            // event.on("saveTahun", () => console.log(state.startDate));
         });
         return {
             state,

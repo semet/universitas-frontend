@@ -1,6 +1,6 @@
 <template>
     <div :class="width">
-        <div class="card">
+        <div class="card shadow-lg">
             <h4 class="card-header mt-0" v-if="header">{{ header }}</h4>
             <div class="card-body">
                 <slot></slot>
@@ -27,4 +27,9 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.card-header {
+    background-color: rgb(69, 69, 95);
+    color: rgb(250, 250, 250);
+}
+</style>

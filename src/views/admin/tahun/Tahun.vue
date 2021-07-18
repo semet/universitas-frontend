@@ -9,6 +9,7 @@
                             <th>Nama</th>
                             <th>Tanggal Awal</th>
                             <th>Tanggal Akhir</th>
+                            <th>Aktif</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -16,15 +17,30 @@
                         <tr v-for="(tahun, index) in allTahun" :key="index">
                             <th scope="row">{{ index + 1 }}</th>
                             <td>{{ tahun.name }}</td>
-                            <td>{{ tahun.startDate }}</td>
-                            <td>{{ tahun.endDate }}</td>
+                            <td>{{ formatDate(tahun.start_date) }}</td>
+                            <td>{{ formatDate(tahun.end_date) }}</td>
+                            <td>
+                                <input
+                                    type="checkbox"
+                                    :id="tahun.id"
+                                    switch="none"
+                                    :checked="tahun.active"
+                                    :disabled="tahun.active === 1"
+                                    @click="toggleActiveYear(tahun.id)"
+                                />
+                                <label
+                                    :for="tahun.id"
+                                    data-on-label="On"
+                                    data-off-label="Off"
+                                ></label>
+                            </td>
                             <td>
                                 <div class="btn-toolbar mb-0">
                                     <div class="">
                                         <button
                                             type="button"
                                             class="btn btn-success btn-sm waves-effect waves-light mr-1"
-                                            @click.prevent="showTahun(staff.id)"
+                                            @click.prevent="showTahun(tahun.id)"
                                         >
                                             <i class="far fa-eye"></i>
                                         </button>
@@ -88,6 +104,8 @@ export default defineComponent({
             showTahun,
             editTahun,
             deleteTahun,
+            formatDate,
+            toggleActiveYear,
             modal,
         } = useTahun();
 
@@ -103,7 +121,14 @@ export default defineComponent({
                 $("#myModal").modal("hide");
                 await loadTahuns();
             });
+
+            // event.on("tahunToggled", async (e) => {
+            //     await loadTahuns();
+            //     console.log(e);
+            // });
+            // event.on("tahunNotToggled", () => loadTahuns());
         });
+
         return {
             allTahun,
             selectedTahun,
@@ -112,6 +137,8 @@ export default defineComponent({
             editTahun,
             deleteTahun,
             modal,
+            formatDate,
+            toggleActiveYear,
         };
     },
 });
